@@ -20,8 +20,8 @@ var questions = [
     answer: "Arabic"
   },
   {
-    title: "b",
-    choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
-    answer: "parentheses"
+    title: "What was the Democratic republic of Congo once called?",
+    choices: ["Zimbabowe", "Zaire", "Rawanda", "Tanzania"],
+    answer: "Zaire"
   },
 ];

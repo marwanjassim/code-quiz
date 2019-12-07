@@ -10,7 +10,7 @@ function timerFunction() {
     disp.innerHTML = "0"
     gameOver(0)
   } else {
-    disp.innerHTML = time
+    disp.innerHTML = "your score is: " + time
   }
 }
 
@@ -25,7 +25,6 @@ function startGame() {
 }
 
 function saveScore(score) {
-
 }
 
 function clearScores() {
@@ -39,6 +38,11 @@ function showScores() {
 function gameOver(finalTime) {
   // Stop the game timer
   clearInterval(timer)
+  var html = `
+  <h1>Quiz Over</h1>
+  <input id="name" type="text" placeholder="Please type in your name"></input>
+  <button onclick="saveScore(${finalTime})">Save</button>`
+  quizArea.innerHTML = html
 }
 
 function showQuestion(num) {
