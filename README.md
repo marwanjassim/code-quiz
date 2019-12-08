@@ -1,9 +1,9 @@
 # Code Quiz
-This is my Trivia Game or i like to call it Geography quiz, it has five questions and each question contain 4 mutiple choice answers 
+This is my Trivia Game or i like to call it Geography quiz, it has five questions and each question contain 4 mutiple choice answers.  
 
-![Main Page](pass.jpg)
-![question 1](pass1.jpg)
-![question 2](pass2.jpg)
+![Main Page](p1.png)
+![question 1](p2.png)
+![score page](p3.png)
 
 
 # Prerequisites
@@ -11,6 +11,7 @@ No prerequistes
 
 # Installing
 Copy files and open with browser
+check code with VS or inspect using the browser
 
 # Built With
 Bootstrap 
