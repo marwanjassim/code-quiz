@@ -7,17 +7,16 @@ function timerFunction() {
   // -1 second, check if game is still going 
   time = time - 1
   if (time <= 0) {
-    disp.innerHTML = "0"
-    gameOver(0)
+    gameOver(time)
   } else {
-    disp.innerHTML = time
+    disp.innerHTML = "Time remaining: " + time
   }
 }
 
 function startGame() {
   // Set up time
   time = questions.length * 15
-  disp.innerHTML = time
+  disp.innerHTML = "Time remaining: " + time
   // Start timer function
   timer = setInterval(timerFunction, 1000);
   // Start game!
@@ -67,24 +66,51 @@ function showScores() {
     // scores = []
     // score = {name:"Alex", score: 32}
     var output = []
-    output.push("<ul>")
+    output.push(
+        `<table class="table">
+        <thead>
+            <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Score</th>
+            </tr>
+        </thead>
+        <tbody>`)
     scores.forEach(function(score) {
-        output.push(`<li><b>${score.name}</b>: ${score.score}</li>`)
+        output.push(`<tr><td>${score.name}</td><td>${score.score}</td></tr>`)
     })
-    output.push("</ul>")
-    output.push("<button onclick='window.location.reload()'>Back</button>")
-    output.push("<button onclick='clearScores()'>Clear</button>")
-    quizArea.innerHTML = output.join("")
+    output.push("</tbody></table>")
+    output.push(
+        `<div class="row">
+         <div class="col-12 col-md-6 mb-2">
+            <button class="btn btn-primary w-100" onclick="window.location.reload()">Back</button>
+         </div>
+         <div class="col-12 col-md-6 mb-2">
+            <button class="btn btn-danger w-100"  onclick="clearScores()">Clear</button>
+         </div></div>`)
+    quizArea.innerHTML = output.join(" ")
 }
 
 function gameOver(finalTime) {
+  // Clear time display
+  disp.innerHTML = ""
+
+  // If less than 0, score is 0
+  if (finalTime < 0) {
+      finalTime = 0
+  }
+
   // Stop the game timer
   clearInterval(timer)
   var html = `
-  <h1>Quiz over</h1>
   <p>Your final score is ${finalTime}.</p>
-  <input id="name" type="text" placeholder="Please type in your name"></input>
-  <button onclick="saveScore(${finalTime})">Save</button>`
+  <form class="row">
+    <div class="col-12 col-md-8 mb-3">
+      <input id="name" class="form-control w-100" type="text" placeholder="Please type in your name"></input>
+    </div>
+    <div class="col-12 col-md-4">
+      <button class="w-100 btn btn-primary" onclick="saveScore(${finalTime})" action="submit">Save</button>
+    </div>
+  </form>`
   quizArea.innerHTML = html
 }
 
@@ -93,24 +119,27 @@ function showQuestion(num) {
     var output = []
 
     // Add question
-    output.push(`<h1>${questions[num].title}</h1>`)
+    output.push(`<h4>${questions[num].title}</h4>`)
 
     // Add all answers
+    output.push("<div class='row'>")
     for (answer of questions[num].choices) {
         output.push(
-            `<button onClick="answerQuestion(${num}, '${answer}')">
+            `<div class="col-12 col-md-6">
+             <button class="btn btn-primary w-100 mb-4" onClick="answerQuestion(${num}, '${answer}')">
                 ${answer}
-            </button>`)
+             </button></div>`)
     }
+    output.push("</div>")
 
     // Put it on the page
-    quizArea.innerHTML = output.join("")
+    quizArea.innerHTML = output.join(" ")
 }
 
 function answerQuestion(num, answer){
   if (answer !== questions[num].answer) {
     time = time - 15
-    disp.innerHTML = time
+    disp.innerHTML = "Time remaining: " + time
   }
 
   if (num + 1 < questions.length) {
